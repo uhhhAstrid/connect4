@@ -1,23 +1,71 @@
 # constant variable declarations
-HEIGHT = ??? # height of board
-WIDTH = ??? # width of board
+HEIGHT = 6 # height of board - number of rows
+WIDTH = 7 # width of board - number of columns
 
 # function declarations
 def initialize():
     '''Sets up the empty board.'''
-    return
+    # make a new list called board
+    board = []
+    for row in range(HEIGHT): # loop for how many rows there are
+        board.append(["O"] * WIDTH)   # on each row, add a column to the list.
+                                            # in python, multiplying in a list adds that number of items to it
+                                            # so "O" * 8 would add 8 O's to the list
+    return board
 
-def print_board(???):
+def print_board(board):
     '''Prints out the board correctly.'''
-    return
+    print("1 2 3 4 5 6 7") # print the column numbers (so the players know what they can input)
+    print("_" * 13) # print out a separator "_" to separate the column numbers from the board
+    for row in board: 
+        print(row) # print out each row on a separate line
+                    # print(board) would print out all rows on the same line
 
-def get_move(???, ???):
+def get_move(board, player):
     '''Takes in the user's move and verifies it.'''
+
+    # player picks a column
+    move = int(input("Please put in a number 1-7 for where you want to drop your piece."))
+    
+    # make sure move is between columns 1-7
+    if (move < 1 or move > WIDTH):
+        get_move(board, player)
+
+    # check if column is full
+    # column_full = True
+    for row in range(HEIGHT):
+        if board[move][row] == "O":
+            column_full = False
+    
+    if(column_full):
+        get_move(board,player)
+    else:
+        return move
+
+def make_move(move, board, player):
+    '''Changes the board using the user's move.'''
+    # steps we need to take to finish the code
+    
+    # using the move,
+    # look at the board at that column
+    # then, replace the lowest "O" 
+    # with the letter of the player whose turn it is
+    
+    # board -> column -> at the last empty space
+    # board[column][last empty space] = player
+    
+    # FOR LOOP
+        # we're going down through the row
+        # on each row, look at the current cell of the list
+        # if it is equal to "O", keep going
+            # a variable to track where the move goes
+        # if it isn't, stop going
+
+    # update the board
+
     return
 
-def make_move(???, ???, ???):
-    '''Changes the board using the user's move.'''
-    return
+
 
 def check_win(board):
     '''Checks the whole board to see if a player has connected 4!'''
@@ -53,9 +101,7 @@ def main():
     winner = ""
 
     while winner == "":
-        # game goes here!
-        # we need to:
-            # print the board
+        print_board()
             # get the current player's move
             # make the current player's move
             # check to see if anyone has won
